@@ -19,7 +19,33 @@ jobs:
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_SSH_KEY }}
+          key: ${{ -----BEGIN RSA PRIVATE KEY-----
+MIIEogIBAAKCAQEAmw+Kr5CWCpjFpsjHyMuvM0LSEOFFqb9L9XfRrFosGERmXRxI
+LWnvnlZ3H4diI150VN/cmnjZ2GLdEtLlaBv2X5qz0k1edcFOOiW/J/OVRE9cI2QM
+dLkEcs0E9025CqjjS3czOxvfXaVx0PT0iGECk2z2WmsfpfdxXAyK7azQWB/uC95D
++ukZUwmXwfRfrz2ea8n07rwYKm6lYpQqq/9i+CEqu1DagqiBYwJYXKLLgPBX38G0
+pTyfU9tDEjP55TdzLBRhZtsbqDQJya0KPE6X+69vKRsFzHg8U8rg5gricsZXlXkt
+5kUvpM4p0cjupXuWSg8W9qYctvkSyGmOizpM+QIDAQABAoIBABktN9Zzwnjr/0Oq
+XA31THglRFhrS1VZcyrjDo9OgNRb3scFfY6qIbby0Rq0b7HQd1EEnBwUvUJOIxkY
+VxlFWQaC5umhmFHEVkBIurXw7e6OeCZi60bUd61wLns9Cmt5qpYpP488YlMhNs63
+xzCRl8p6KbHarOPUvno0qyYWJin4nInSM/9/0zfLApwPPI2E/JQwjVIHMdO6AJiL
++uyKX3mZKXZtif73oKNerSckqlbUPXxseYm1blK8kGfR0rPZmxEINrw+V0Hyk4fB
+sB3Aa4zbZ7ERC+HwDxBqDKPf42jZQC2GgeF4udsmMRNSQC8hw02EAuuG/iJFBZVV
+qQ6ZwKUCgYEAyAobJGr3KHtTsa1h3APjzqJ/8Qzwjs9IXzjFMbBPI3gQjVmlQqB0
+/iLpivSgxgdUxQUvzkFkbvEraxQXzrDANKNFW1XkwJRed+Aw8pI1p1jojn+EOVkV
+MpC7NSrz4EfJlZT1VPQbGhIKpO0eWrDrYyR4ar+eq7dgnCX9IrExOzsCgYEAxnBE
+LJWy/PPy8q9dTr9zQzY4WCq559VRz6QUtIB7GpJ0MFxs9d2XVp+AvnJVRi3JkJON
+TkqoGLVgZrHddhrihTmmx8se1Ujcoal2IQ99D8i9xT/J7EFxsHjEiWbsM+C6ku0V
+dcejtowx3gPvCNfpXzbUnH4Afy+u/DH+wYokzVsCgYAhLbvuwGcaKcpp7+4JRgPk
+5AMAgjrsFOlWEd5zLWES6vkj2LiWYnLFLBk8WPLJpbGjtAaH2UTFOe8PpZeFSr+2
+e1YnngmA/5rjmyXDNgj8Jrz71Z6ivGnNpz/Fw8gLbRy8WKaQXqSYIGHvlPyx4iJI
+oWXvnrS8mn/Fpm9j76vQvQKBgHgsewzpJ7lK32GbVA2hoeMdTegPEADXTjFKdAOQ
+H31LHjQ/dPk81i7ub6BmS0Ax8HSu9w9n5P75sMTgiHbC91WpQViTqTuPYZZBszl4
+UMujTVHMPLPoOjqeGKABhaAxQ6xBChMG8R1XL8f9Z+BaKYmxAfc304My1G0Etfxt
+dbYrAoGAZ9AabTUv6B0Pc1otxfja9Z7BRm7FdCAj9CVtp4+sxFxBuJ3hN9fx82ET
+NSlQBxeyZnhfZ4DyAByZkXgw2oSlvu1GyeuJqhO29pCbYrFZqmEyHuDdSJkjD2hR
+SsWJ4bakbrOSSQvIL7ioRZmzXSLEQpIZxH0cqg77HWTvs6Qlpz4=
+-----END RSA PRIVATE KEY----- }}
           source: "target/*.war"
           target: "/opt/serosoft/tomcat/webapps/"
 
