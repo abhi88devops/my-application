@@ -1,53 +1,37 @@
-name: Deploy WAR to Tomcat (UAT)
+name: Terraform AWS Deploy
 
 on:
   push:
-    branches: [develop]     # ya jo bhi branch UAT ke liye use karte ho
-  workflow_dispatch:        # manual trigger bhi rakho for on-demand deploy
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  id-token: write   # needed for OIDC
+  contents: read
 
 jobs:
-  deploy:
+  terraform:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: terraform
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up JDK
-        uses: actions/setup-java@v4
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          distribution: 'temurin'
-          java-version: '17'
+          role-to-assume: arn:aws:iam::ACCOUNT_ID:role/github-actions-role
+          aws-region: us-east-1
 
-      - name: Build WAR
-        run: mvn clean package -DskipTests
+      - uses: hashicorp/setup-terraform@v3
 
-      - name: Deploy to UAT Tomcat
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.UAT_EC2_HOST }}
-          username: ${{ secrets.UAT_EC2_USER }}
-          key: ${{ secrets.UAT_EC2_SSH_KEY }}
-          script: sudo systemctl stop tomcat
+      - run: terraform init
+      - run: terraform fmt -check
+      - run: terraform validate
+      - run: terraform plan -out=tfplan
 
-      - name: Copy new WAR to UAT
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.UAT_EC2_HOST }}
-          username: ${{ secrets.UAT_EC2_USER }}
-          key: ${{ secrets.UAT_EC2_SSH_KEY }}
-          source: "target/*.war"
-          target: "/opt/serosoft/tomcat/webapps/"
-
-      - name: Start Tomcat & verify
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.UAT_EC2_HOST }}
-          username: ${{ secrets.UAT_EC2_USER }}
-          key: ${{ secrets.UAT_EC2_SSH_KEY }}
-          script: |
-            cd /opt/serosoft/tomcat/webapps/
-            sudo mv *.war ROOT.war 2>/dev/null || true
-            sudo systemctl start tomcat
-            sleep 10
-            sudo systemctl status tomcat --no-pager
-            curl -f http://localhost:8080/ || echo "Warning: health check failed, check manually"
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: terraform apply -auto-approve tfplan
