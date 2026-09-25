@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: terraform
+        working-directory: C:\Users\Abhishek Soni\OneDrive\Desktop\aws-terraform-cicd
     steps:
       - uses: actions/checkout@v4
 
