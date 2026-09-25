@@ -13,9 +13,7 @@ permissions:
 jobs:
   terraform:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: C:\Users\Abhishek Soni\OneDrive\Desktop\aws-terraform-cicd
+    
     steps:
       - uses: actions/checkout@v4
 
